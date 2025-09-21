@@ -2,6 +2,8 @@
 
 A production-ready React Native app built with Expo, TypeScript, Supabase, and React Query for managing notes with optional image attachments.
 
+Kindly find the demo  video attached at the end of this documentation
+
 ## Features
 
 - 🔐 **Authentication**: Email/password authentication with Supabase Auth
@@ -32,10 +34,10 @@ A production-ready React Native app built with Expo, TypeScript, Supabase, and R
 
 ### 1. Clone and Install Dependencies
 
-\`\`\`bash
+```bash
 cd visual-notes
 npm install
-\`\`\`
+```
 
 ### 2. Supabase Setup
 
@@ -48,15 +50,15 @@ npm install
 
 Create a \`.env\` file in the root directory:
 
-\`\`\`env
+```env
 EXPO_PUBLIC_SUPABASE_URL=your_supabase_project_url
 EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 EXPO_PUBLIC_SUPABASE_BUCKET=note-images
-\`\`\`
+```
 
 ### 4. Run the App
 
-\`\`\`bash
+```bash
 # Start the development server
 npm start
 
@@ -68,13 +70,13 @@ npm run android
 
 # Run tests
 npm test
-\`\`\`
+```
 
 ## Database Schema
 
 ### Notes Table
 
-\`\`\`sql
+```sql
 -- Create notes table
 CREATE TABLE IF NOT EXISTS public.notes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -106,11 +108,11 @@ WITH CHECK (user_id = auth.uid());
 
 CREATE POLICY "delete own notes" ON public.notes
 FOR DELETE USING (user_id = auth.uid());
-\`\`\`
+```
 
 ### Storage Bucket Policies
 
-\`\`\`sql
+```sql
 -- Create storage bucket (run in Supabase dashboard)
 INSERT INTO storage.buckets (id, name, public) VALUES ('note-images', 'note-images', false);
 
@@ -131,11 +133,11 @@ WITH CHECK (bucket_id = 'note-images' AND split_part(name, '/', 1) = auth.uid():
 CREATE POLICY "delete own images" ON storage.objects
 FOR DELETE TO authenticated
 USING (bucket_id = 'note-images' AND split_part(name, '/', 1) = auth.uid()::text);
-\`\`\`
+```
 
 ## Project Structure
 
-\`\`\`
+```
 src/
 ├── app/
 │   └── AppNavigator.tsx          # Main navigation setup
@@ -160,7 +162,7 @@ src/
 │   └── ErrorView.tsx             # Error display component
 └── utils/
     └── validators.ts             # Utility functions
-\`\`\`
+```
 
 ## Key Features Implementation
 
@@ -195,10 +197,10 @@ The project includes comprehensive testing setup:
 - **Mocking**: Proper mocking of Expo modules and Supabase
 
 Run tests:
-\`\`\`bash
+```bash
 npm test
 npm run test:watch
-\`\`\`
+```
 
 ## Accessibility
 
@@ -225,6 +227,5 @@ The app follows accessibility best practices:
 4. Add tests for new functionality
 5. Submit a pull request
 
-## License
-
-MIT License - see LICENSE file for details.
+## Demo
+https://drive.google.com/drive/folders/1tPwSL-Tuj4Re_c41cCqVrNLOzO3jISZo?usp=sharing
